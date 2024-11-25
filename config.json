@@ -1,0 +1,8 @@
+{
+    "cenario": "Construção Civil",
+    "riscos_presentes": ["queda", "choque elétrico"],
+    "epis_disponiveis": ["capacete", "botas de segurança"],
+    "feedback_ativado": true,
+    "numero_de_tentativas": 3,
+    "dificuldade": "básico"
+}
