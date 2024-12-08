@@ -1,0 +1,19 @@
+@startuml
+
+actor User
+participant "Flask Server" as Flask
+participant "DataManager" as DM
+participant "instances.json" as Instances
+participant "analytics.json" as Analytics
+
+User -> Flask : POST /deploy-atividade
+Flask -> Flask : Recebe dados (JSON)
+Flask -> DM : Chama método load_instances()
+DM -> Instances : Abre e lê instances.json
+Instances -> DM : Retorna dados das instâncias
+Flask -> DM : Chama método save_instances(instances)
+DM -> Instances : Abre e escreve em instances.json
+Instances -> DM : Confirma escrita
+Flask -> User : Retorna URL da atividade
+
+@enduml
