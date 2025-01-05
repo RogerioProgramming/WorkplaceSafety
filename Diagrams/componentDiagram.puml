@@ -4,7 +4,8 @@ package "App (Flask)" {
   [Flask Server] --> [main.py]
   [Flask Server] --> [Templates]
   [Flask Server] --> [Config.json]
-  [Flask Server] --> [DataManager]
+  [Flask Server] --> [DataManager] : uses
+  [Flask Server] --> [JSONDataSource] : uses
   [Flask Server] --> [instances.json]
   [Flask Server] --> [analytics.json]
 }
@@ -16,11 +17,13 @@ package "Templates" {
 }
 
 package "Data Management (Singleton)" {
+  [DataManager] --> [DataSource] : uses
   [DataManager] --> [instances.json]
   [DataManager] --> [analytics.json]
   [DataManager] --> [Config.json]
+  [JSONDataSource] --> [DataSource] : implements
 }
 
-[Flask Server] --> [DataManager] : uses
+[Flask Server] --> [DataManager] : interacts with
 
 @enduml

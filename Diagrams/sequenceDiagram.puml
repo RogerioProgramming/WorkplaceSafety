@@ -3,17 +3,25 @@
 actor User
 participant "Flask Server" as Flask
 participant "DataManager" as DM
+participant "JSONDataSource" as DS
 participant "instances.json" as Instances
 participant "analytics.json" as Analytics
 
 User -> Flask : POST /deploy-atividade
 Flask -> Flask : Recebe dados (JSON)
+Flask -> DM : Verifica se instância do DataManager existe
+alt Instância não existe
+    DM -> DM : Cria instância (Singleton)
+end
 Flask -> DM : Chama método load_instances()
-DM -> Instances : Abre e lê instances.json
-Instances -> DM : Retorna dados das instâncias
+DM -> DS : Chama método load_instances()
+DS -> Instances : Abre e lê instances.json
+Instances -> DS : Retorna dados das instâncias
+DS -> DM : Retorna instâncias
 Flask -> DM : Chama método save_instances(instances)
-DM -> Instances : Abre e escreve em instances.json
-Instances -> DM : Confirma escrita
+DM -> DS : Chama método save_instances(instances)
+DS -> Instances : Abre e escreve em instances.json
+Instances -> DS : Confirma escrita
 Flask -> User : Retorna URL da atividade
 
 @enduml
