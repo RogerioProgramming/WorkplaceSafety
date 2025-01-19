@@ -5,7 +5,9 @@ participant "Flask Server" as Flask
 participant "DataManager" as DM
 participant "JSONDataSource" as DS
 participant "instances.json" as Instances
-participant "analytics.json" as Analytics
+participant "Observer" as Observer
+participant "LoggerObserver" as Logger
+participant "ReportGeneratorObserver" as ReportGen
 
 User -> Flask : POST /deploy-atividade
 Flask -> Flask : Recebe dados (JSON)
@@ -22,6 +24,12 @@ Flask -> DM : Chama método save_instances(instances)
 DM -> DS : Chama método save_instances(instances)
 DS -> Instances : Abre e escreve em instances.json
 Instances -> DS : Confirma escrita
+DS -> DM : Confirma gravação
+DM -> Observer : Notifica observadores ("save_instances", instances)
+Observer -> Logger : LoggerObserver.update("save_instances", instances)
+Observer -> ReportGen : ReportGeneratorObserver.update("save_instances", instances)
+Logger -> Logger : Exibe log do evento
+ReportGen -> ReportGen : Gera relatório de instâncias
 Flask -> User : Retorna URL da atividade
 
 @enduml

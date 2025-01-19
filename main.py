@@ -2,11 +2,19 @@
 
 from flask import Flask, request, jsonify, render_template
 from data_manager import DataManager
+from Observers import LoggerObserver, ReportGeneratorObserver
 
 app = Flask(__name__)
 
 # Instanciando o DataManager (Singleton)
 data_manager = DataManager()
+
+# Adiciona os observadores
+logger_observer = LoggerObserver()
+report_observer = ReportGeneratorObserver()
+
+data_manager.add_observer(logger_observer)
+data_manager.add_observer(report_observer)
 
 @app.route('/')
 def index():

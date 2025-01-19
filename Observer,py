@@ -1,0 +1,9 @@
+class Observer:
+    def update(self, event_type, data):
+        """Método dos observadores.
+        
+        Args:
+            event_type (str): O tipo do evento (ex.: "save_instances", "save_analytics").
+            data (any): Dados relevantes para o evento.
+        """
+        pass

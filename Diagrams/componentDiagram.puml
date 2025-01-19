@@ -24,6 +24,12 @@ package "Data Management (Singleton)" {
   [JSONDataSource] --> [DataSource] : implements
 }
 
+package "Observers" {
+  [Observer] <|-- [LoggerObserver] : implements
+  [Observer] <|-- [ReportGeneratorObserver] : implements
+  [DataManager] --> [Observer] : notifies
+}
+
 [Flask Server] --> [DataManager] : interacts with
 
 @enduml
