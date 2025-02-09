@@ -4,7 +4,7 @@ class Observer:
 
 class LoggerObserver(Observer):
     def update(self, event_type, data):
-        print(f"[LOG] Evento '{event_type}' ocorrido com dados: {data}")
+        print(f"[LOG] Evento '{event_type}' ocorreu com dados: {data}")
 
 class ReportGeneratorObserver(Observer):
     def update(self, event_type, data):

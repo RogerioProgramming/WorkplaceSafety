@@ -16,12 +16,13 @@ package "Templates" {
   [feedback.html]
 }
 
-package "Data Management (Singleton)" {
-  [DataManager] --> [DataSource] : uses
+package "Data Management" {
+  [DataManager] --> [JSONDataSource] : uses
   [DataManager] --> [instances.json]
   [DataManager] --> [analytics.json]
   [DataManager] --> [Config.json]
-  [JSONDataSource] --> [DataSource] : implements
+  [JSONDataSource] --> [instances.json]
+  [JSONDataSource] --> [analytics.json]
 }
 
 package "Observers" {
